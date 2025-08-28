@@ -24,32 +24,8 @@ A plataforma conta com um stack de monitoramento completo com **Prometheus**, **
 
 ## 📂 Estrutura do Repositório
 
-```
-/projeto
-|
-├── docker-compose.yml        # Orquestra a criação de todos os contêineres (dispositivos e serviços).
-|
-├── setup_mininet_env.sh      # Script para limpar, criar as redes Docker e iniciar os contêineres.
-|
-├── mininet_topology.py       # Script Python que cria a topologia de rede e conecta as redes Docker.
-|
-├── blackbox/
-│   └── blackbox.yml          # Define o módulo de teste ICMP para o Blackbox Exporter.
-|
-├── grafana-data/
-│   └── dashboard.json        # Contém o código do dashboard final para importação no Grafana.
-|
-├── iot_device/
-│   ├── Dockerfile            # Constrói a imagem Docker para os dispositivos (com Python e Node Exporter).
-│   ├── app.py                # Script Python que simula os 3 perfis de dispositivo e envia dados via MQTT.
-│   └── supervisord.conf      # Gerencia a execução do app.py e do node_exporter dentro do contêiner.
-|
-├── mosquitto/
-│   └── mosquitto.conf        # Permite conexões anônimas ao broker MQTT.
-|
-└── prometheus/
-    └── prometheus.yml        # Define os alvos que o Prometheus deve monitorar (Node Exporter e Blackbox).
-```
+<img width="334" height="446" alt="image" src="https://github.com/user-attachments/assets/c8c3f5c7-10c5-4f0e-84be-441c8b9e92df" />
+
 
 ## 🚀 Aplicações e Dispositivos Simulados
 
