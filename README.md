@@ -112,6 +112,7 @@ Modelamos três aplicações distintas, cada uma emulando um dispositivo IoT com
     * No Grafana, vá em **Dashboards -> New -> Import**.
     * Faça o upload do arquivo `grafana-data/dashboard.json` ou cole seu conteúdo.
     * Selecione sua fonte de dados Prometheus e finalize a importação.
+    * OBS: é necessário trocar o UUID dentro do datasoruce do .json para funcionar.
 
 ## 🧪 Como Realizar Testes
 
