@@ -1,0 +1,128 @@
+networks:
+  devices_net:
+    external: true
+  services_net:
+    external: true
+
+volumes:
+  grafana-data:
+
+services:
+  # --- SERVIÇOS DA NUVEM ---
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    container_name: mosquitto
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    networks:
+      services_net:
+        ipv4_address: 10.10.20.2
+
+  prometheus:
+    image: prom/prometheus:v2.45.0
+    container_name: prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    cap_add:
+      - NET_ADMIN
+    networks:
+      services_net:
+        ipv4_address: 10.10.20.4
+      devices_net:
+        ipv4_address: 10.10.10.10
+
+  # NOVO SERVIÇO BLACKBOX EXPORTER
+  blackbox-exporter:
+    image: prom/blackbox-exporter:v0.24.0
+    container_name: blackbox-exporter
+    restart: unless-stopped
+    volumes:
+      - ./blackbox/blackbox.yml:/config/blackbox.yml # Mapeia o novo arquivo de config
+    command: --config.file=/config/blackbox.yml
+    ports:
+      - "9115:9115"
+    networks:
+      services_net:
+        ipv4_address: 10.10.20.5
+
+  grafana:
+    image: grafana/grafana:9.5.3
+    container_name: grafana
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      services_net:
+        ipv4_address: 10.10.20.6
+
+  # --- DISPOSITIVOS IOT (COM NODE-EXPORTER INTERNO) ---
+  iot-low-lixeira:
+    build: ./iot_device
+    container_name: iot-low-lixeira
+    restart: unless-stopped
+    # ... (o resto dos seus dispositivos IoT continua igual)
+    depends_on:
+      - mosquitto
+    ports:
+      - "9101:9100"
+    environment:
+      - DEVICE_PROFILE=lixeira_inteligente
+      - SEND_INTERVAL=600
+      - MQTT_BROKER_HOST=10.10.20.2
+    cap_add:
+      - NET_ADMIN
+    cpus: '0.1'
+    mem_limit: '64M'
+    networks:
+      devices_net:
+        ipv4_address: 10.10.10.3
+    
+  iot-medium-poluicao:
+    build: ./iot_device
+    container_name: iot-medium-poluicao
+    restart: unless-stopped
+    depends_on:
+      - mosquitto
+    ports:
+      - "9102:9100"
+    environment:
+      - DEVICE_PROFILE=poluicao_station
+      - SEND_INTERVAL=300
+      - MQTT_BROKER_HOST=10.10.20.2
+    cap_add:
+      - NET_ADMIN
+    cpus: '0.4'
+    mem_limit: '512M'
+    networks:
+      devices_net:
+        ipv4_address: 10.10.10.4
+
+  iot-high-agua:
+    build: ./iot_device
+    container_name: iot-high-agua
+    restart: unless-stopped
+    depends_on:
+      - mosquitto
+    ports:
+      - "9103:9100"
+    environment:
+      - DEVICE_PROFILE=agua_station
+      - SEND_INTERVAL=60
+      - MQTT_BROKER_HOST=10.10.20.2
+    cap_add:
+      - NET_ADMIN
+    cpus: '1.0'
+    mem_limit: '2048M'
+    networks:
+      devices_net:
+        ipv4_address: 10.10.10.5
