@@ -49,6 +49,11 @@ ip link set veth-devices master $DEVICES_BRIDGE
 echo "Conectando veth-services à bridge: $SERVICES_BRIDGE"
 ip link set veth-services master $SERVICES_BRIDGE
 
+# --- INÍCIO DA MODIFICAÇÃO ---
+echo "--- Desativando STP nas pontes Docker para garantir conectividade imediata ---"
+brctl stp $DEVICES_BRIDGE off
+brctl stp $SERVICES_BRIDGE off
+sleep 2
 
 # --- ETAPA 3: INICIALIZAÇÃO DOS CONTÊINERES ---
 echo "--- Iniciando todos os contêineres com o Docker Compose Unificado ---"
