@@ -8,7 +8,6 @@ volumes:
   grafana-data:
 
 services:
-  # --- SERVIÇOS DA NUVEM ---
   mosquitto:
     image: eclipse-mosquitto:2.0
     container_name: mosquitto
@@ -43,7 +42,7 @@ services:
     container_name: blackbox-exporter
     restart: unless-stopped
     volumes:
-      - ./blackbox/blackbox.yml:/config/blackbox.yml # Mapeia o novo arquivo de config
+      - ./blackbox/blackbox.yml:/config/blackbox.yml 
     command: --config.file=/config/blackbox.yml
     ports:
       - "9115:9115"
@@ -65,12 +64,10 @@ services:
       services_net:
         ipv4_address: 10.10.20.6
 
-  # --- DISPOSITIVOS IOT (COM NODE-EXPORTER INTERNO) ---
   iot-low-lixeira:
     build: ./iot_device
     container_name: iot-low-lixeira
     restart: unless-stopped
-    # ... (o resto dos seus dispositivos IoT continua igual)
     depends_on:
       - mosquitto
     ports:
