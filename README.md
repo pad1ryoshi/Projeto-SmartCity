@@ -60,7 +60,7 @@ Modelamos três aplicações distintas, cada uma emulando um dispositivo IoT com
 * **Estação de Poluição (Medium-Tier):** [CityPulse Smart City Datasets (seção "Pollution")](http://iot.ee.surrey.ac.uk:8080/datasets.html#pollution)
 * **Qualidade da Água (Low-Tier):** [NYC Open Data - Harbor Water Quality](https://data.cityofnewyork.us/Environment/Harbor-Water-Quality/5uug-f49n/data_preview)
 
-## Como Executar
+## Preparando o ambiente
 
 1.  **Pré-requisitos:**
     * Docker e Docker Compose.
@@ -91,7 +91,7 @@ Modelamos três aplicações distintas, cada uma emulando um dispositivo IoT com
     * Faça o upload do arquivo `grafana-data/dashboard.json` ou cole seu conteúdo.
     * Selecione sua fonte de dados Prometheus e finalize a importação.
 
-## 🧪 Como Realizar Testes
+## Realizando testes
 
 Os testes de degradação de rede são realizados diretamente no console do Mininet, utilizando o **NetEm**. Os comandos `tc` (traffic control) são aplicados na interface do roteador (`r1-eth1`) que conecta toda a rede dos dispositivos IoT.
 
