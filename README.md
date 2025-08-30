@@ -65,6 +65,7 @@ Modelamos três aplicações distintas, cada uma emulando um dispositivo IoT com
 1.  **Pré-requisitos:**
     * Docker e Docker Compose.
     * Mininet (`sudo apt-get install mininet`).
+    * bridge utils (`sudo apt-get install bridge-utils`).
 
 2.  **Configuração e Inicialização:**
     * Clone este repositório.
