@@ -19,9 +19,12 @@ A plataforma conta com um stack de monitoramento completo com **Prometheus**, **
 * Visualização e Análise: Grafana
 * Testes de Rede ( degradação de link): NetEm (integrado ao Mininet)
 
+<img width="" height="510" alt="image" src="https://github.com/user-attachments/assets/09d160d3-1d6b-4638-b1f1-9a9682a2b2a3" />
+
+
 ## Estrutura do Repositório
 
-<img width="334" height="446" alt="image" src="https://github.com/user-attachments/assets/c8c3f5c7-10c5-4f0e-84be-441c8b9e92df" />
+<img width="1300" height="446" alt="image" src="https://github.com/user-attachments/assets/c8c3f5c7-10c5-4f0e-84be-441c8b9e92df" />
 
 
 ## Aplicações e Dispositivos Simulados
