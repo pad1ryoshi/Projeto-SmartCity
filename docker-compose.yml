@@ -36,7 +36,6 @@ services:
       devices_net:
         ipv4_address: 10.10.10.10
 
-  # NOVO SERVIÇO BLACKBOX EXPORTER
   blackbox-exporter:
     image: prom/blackbox-exporter:v0.24.0
     container_name: blackbox-exporter
@@ -72,6 +71,9 @@ services:
       - mosquitto
     ports:
       - "9101:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
     environment:
       - DEVICE_PROFILE=lixeira_inteligente
       - SEND_INTERVAL=600
@@ -92,6 +94,9 @@ services:
       - mosquitto
     ports:
       - "9102:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
     environment:
       - DEVICE_PROFILE=poluicao_station
       - SEND_INTERVAL=300
@@ -112,6 +117,9 @@ services:
       - mosquitto
     ports:
       - "9103:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
     environment:
       - DEVICE_PROFILE=agua_station
       - SEND_INTERVAL=60
