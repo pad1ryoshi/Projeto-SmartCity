@@ -86,7 +86,7 @@ Modelamos três aplicações distintas, cada uma emulando um dispositivo IoT com
     * **Prometheus:** [http://localhost:9090](http://localhost:9090)
 
 4.  **Importando o Dashboard:**
-    * No Grafana, pós autenticação, acesse **Connections** no lado esquerdo do menu principal e instale o Prometheus.
+    * No Grafana, pós autenticação, acesse **Connections** no lado esquerdo do menu principal, instale e configure o Prometheus (quando for colocar a url insira o seguinte valor: http://prometheus:9090).
     * Vá em **Dashboards -> New -> Import**.
     * Faça o upload do arquivo `grafana-data/dashboard.json` ou cole seu conteúdo.
     * Selecione sua fonte de dados Prometheus e finalize a importação.
